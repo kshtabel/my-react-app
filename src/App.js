@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 function App() {
   const [data, setData] = useState('');
@@ -15,11 +17,15 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1>React and Node.js Integration</h1>
-      <p>Message from the server: {data}</p>
-    </div>
+    <Box sx={{ width: '100%', maxWidth: 1000}}>
+
+      <Typography variant='h3' gutterBottom>React and Node.js Integration</Typography>
+      
+      <Typography variant='body1' gutterBottom>Message from the server: {data}</Typography>
+
+    </Box>
   );
+
 }
 
 export default App;
