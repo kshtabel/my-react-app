@@ -23,9 +23,13 @@ export default function ButtonAppBar () {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant='h6' component='div' sx={{flexGrow: 1}}>Startseite</Typography>
-                    <Button color='inherit'>Login</Button>
+                    <Button color='inherit' onClick={PerformFunc()}>Login</Button>
                 </Toolbar>
             </AppBar>
         </Box>
     );
+}
+
+function PerformFunc() {
+    alert('Button click');
 }
