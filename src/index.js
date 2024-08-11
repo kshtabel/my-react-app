@@ -2,13 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 //import './index.css';
 import reportWebVitals from './reportWebVitals';
-import ButtonAppBar from './main';
+import Navigation from './main';
+import App from './App';
 // import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ButtonAppBar />
+    <Navigation />
+    <App />
   </React.StrictMode>
 );
 
