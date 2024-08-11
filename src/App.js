@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 function App() {
   const [data, setData] = useState('');
 
+  //creae request to our server and get response from node
   useEffect(() => {
     axios.get('/api/data')
       .then(response => {
