@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import OnButtonClick from './login_View';
 
 export default function Navigation () {
 
@@ -23,7 +24,7 @@ export default function Navigation () {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant='h6' component='div' sx={{flexGrow: 1}}>Startseite</Typography>
-                    <Button color='inherit'>Login</Button>
+                    <Button color='inherit' onClick={OnButtonClick}>Login</Button>
                     <Button color='inherit'>Registrieren</Button>
                 </Toolbar>
             </AppBar>
