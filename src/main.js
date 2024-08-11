@@ -5,13 +5,13 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export default function Navigation () {
 
     return (
         <Box sx={{flexGrow: 1}}>
-            <AppBar position='static' color='primary' enableColorOnDark>
+            <AppBar position='static'>
                 <Toolbar>
                     <IconButton
                         size='large'
@@ -23,13 +23,10 @@ export default function Navigation () {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant='h6' component='div' sx={{flexGrow: 1}}>Startseite</Typography>
-                    <Button color='inherit' onClick={PerformFunc()}>Login</Button>
+                    <Button color='inherit'>Login</Button>
+                    <Button color='inherit'>Registrieren</Button>
                 </Toolbar>
             </AppBar>
         </Box>
     );
-}
-
-function PerformFunc() {
-    alert('Button click');
 }
