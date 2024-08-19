@@ -1,4 +1,4 @@
-// header.js
+// src/header.js
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -7,9 +7,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import LoginPage from './Views/LoginPage'
+import { Link } from 'react-router-dom'; // Importiere Link von react-router-dom
 
-export default function Navigation({ onLoginClick, onRegisterClick }) {
+export default function Navigation() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -27,10 +27,10 @@ export default function Navigation({ onLoginClick, onRegisterClick }) {
             Startseite
           </Typography>
           <Button color='inherit'>Startseite</Button>
-          <Button onClick={onLoginClick} color='inherit'>
+          <Button component={Link} to="/login" color='inherit'> {/* Verwende Link für Navigation */}
             Login
           </Button>
-          <Button onClick={onRegisterClick} color='inherit'>
+          <Button color='inherit'>
             Registrieren
           </Button>
         </Toolbar>
