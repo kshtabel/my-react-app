@@ -7,9 +7,12 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom'; // Importiere Link von react-router-dom
+import { Link } from 'react-router-dom';
+import { useAuth } from './context/AuthContext'; // Importieren Sie den AuthContext
 
 export default function Navigation() {
+  const { isLoggedIn, logout } = useAuth(); // Verwenden Sie den AuthContext
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -27,12 +30,22 @@ export default function Navigation() {
             Startseite
           </Typography>
           <Button component={Link} to='/' color='inherit'>Startseite</Button>
-          <Button component={Link} to="/login" color='inherit'> {/* Verwende Link für Navigation */}
-            Login
-          </Button>
-          <Button component={Link} to='/register' color='inherit'>
-            Registrieren
-          </Button>
+          {!isLoggedIn ? (
+            <>
+              <Button component={Link} to='/login' color='inherit'>
+                Login
+              </Button>
+              <Button component={Link} to='/register' color='inherit'>
+                Registrieren
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button onClick={logout} color='inherit'>
+                Logout
+              </Button>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
