@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import {useState} from 'react';
+import axios from 'axios';
 
 
 const Login = () => {
@@ -15,7 +16,7 @@ const Login = () => {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
         
@@ -32,7 +33,19 @@ const Login = () => {
         }
 
         if (email && password) {
-            alert(email + password)
+            try {
+                //send post request to server
+                const response = await axios.post('api/login', {
+                    email: email,
+                    password: password
+                });
+
+                console.log('Server response: ', response.data);
+                alert('Login erfolgreich');
+            } catch(error) {
+                console.error('Fehler bei der Verarbeitung ', error);
+                alert('Fehler bei der Verarbeitung');
+            }
         }
     }
 
