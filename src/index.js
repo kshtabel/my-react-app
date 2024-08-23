@@ -4,7 +4,7 @@ import Navigation from './header';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login_Model from './components/Login/Login';
 import App from './App'
-import SignUp_Model from './components/Register/Register'
+import SignUp_Model from './components/Register/register'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
