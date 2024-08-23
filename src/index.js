@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import Navigation from './header';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login_Model from './components/Login/Login';
+import App from './App'
+import SignUp_Model from './components/Register/Register'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -12,8 +14,9 @@ root.render(
     <BrowserRouter>
       <Navigation /> {/* Navigation immer sichtbar */}
       <Routes>
-        <Route path="/" element={<div>Willkommen auf der Startseite</div>} /> {/* Beispiel-Startseite */}
+        <Route path="/" element={<App />} /> {/* Beispiel-Startseite */}
         <Route path='/login' element={<Login_Model />} /> {/* Login-Seite */}
+        <Route path='/register' element={<SignUp_Model />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
