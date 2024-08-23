@@ -26,11 +26,11 @@ export default function Navigation() {
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
             Startseite
           </Typography>
-          <Button color='inherit'>Startseite</Button>
+          <Button component={Link} to='/' color='inherit'>Startseite</Button>
           <Button component={Link} to="/login" color='inherit'> {/* Verwende Link für Navigation */}
             Login
           </Button>
-          <Button color='inherit'>
+          <Button component={Link} to='/register' color='inherit'>
             Registrieren
           </Button>
         </Toolbar>
