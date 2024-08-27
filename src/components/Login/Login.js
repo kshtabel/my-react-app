@@ -8,6 +8,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import UserBoard from './User_Board';
 import { useAuth } from '../../context/AuthContext'; // Importieren Sie den AuthContext
+import UserDashboard from './Views/User_Dashboard';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -49,7 +50,7 @@ const Login = () => {
     }
 
     if (isLoggedIn) {
-        return <UserBoard />;
+        return <UserDashboard />;
     }
 
     return (
