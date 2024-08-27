@@ -1,13 +1,12 @@
-// src/context/AuthContext.js
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
+export const useAuth = () => useContext(AuthContext);
+
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [token, setToken] = useState('');
-    const navigate = useNavigate();
+    const [token, setToken] = useState(null);
 
     useEffect(() => {
         const savedToken = localStorage.getItem('token');
@@ -18,16 +17,15 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = (token) => {
-        localStorage.setItem('token', token);
         setToken(token);
         setIsLoggedIn(true);
+        localStorage.setItem('token', token);
     };
 
     const logout = () => {
-        localStorage.removeItem('token');
-        setToken('');
+        setToken(null);
         setIsLoggedIn(false);
-        navigate('/login');
+        localStorage.removeItem('token');
     };
 
     return (
@@ -35,8 +33,4 @@ export const AuthProvider = ({ children }) => {
             {children}
         </AuthContext.Provider>
     );
-};
-
-export const useAuth = () => {
-    return useContext(AuthContext);
 };
