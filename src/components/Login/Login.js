@@ -1,3 +1,4 @@
+// src/components/Login/Login.js
 import * as React from 'react';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
@@ -6,16 +7,16 @@ import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 import axios from 'axios';
-import UserBoard from './User_Board';
-import { useAuth } from '../../context/AuthContext'; // Importieren Sie den AuthContext
-import UserDashboard from './Views/User_Dashboard';
+import { useAuth } from '../../context/AuthContext'; // AuthContext importieren
+import { useNavigate } from 'react-router-dom'; // useNavigate importieren
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    const { isLoggedIn, login } = useAuth(); // Verwenden Sie den AuthContext
+    const { isLoggedIn, login } = useAuth(); // AuthContext verwenden
+    const navigate = useNavigate(); // useNavigate-Hook verwenden
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,7 +42,8 @@ const Login = () => {
                 console.log('Server response: ', response.data);
                 alert('Login erfolgreich');
 
-                login(response.data.token); // Verwenden Sie die login-Funktion aus dem AuthContext
+                login(response.data.token); // Auth-Status setzen
+                navigate('/dashboard'); // Weiterleiten zur Dashboard-Seite
             } catch (error) {
                 console.error('Fehler bei der Verarbeitung ', error);
                 alert('Fehler bei der Verarbeitung');
@@ -49,9 +51,11 @@ const Login = () => {
         }
     }
 
-    if (isLoggedIn) {
-        return <UserDashboard />;
-    }
+    React.useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/dashboard'); // Redirect zur Dashboard-Seite, wenn bereits eingeloggt
+        }
+    }, [isLoggedIn, navigate]);
 
     return (
         <Box
