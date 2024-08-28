@@ -131,11 +131,13 @@ export default function Navigation() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Account
-                  <PersonIcon sx={{ mr: 1, ml: 3 }} /> {/* PersonIcon für Account */}
+                <MenuItem onClick={handleClose}>
+                  <PersonIcon sx={{ mr: 2 }} /> {/* PersonIcon für Account mit größerem Abstand */}
+                  Account
                 </MenuItem>
-                <MenuItem onClick={handleClose}>Einstellungen
-                  <SettingsIcon sx={{ mr: 1, ml: 3 }} /> {/* SettingsIcon für Einstellungen */}
+                <MenuItem onClick={handleClose}>
+                  <SettingsIcon sx={{ mr: 2 }} /> {/* SettingsIcon für Einstellungen mit größerem Abstand */}
+                  Einstellungen
                 </MenuItem>
               </Menu>
             </>
