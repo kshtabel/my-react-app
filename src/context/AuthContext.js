@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-import {jwtDecode} from 'jwt-decode'; // Achte auf die richtige Schreibweise
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import {jwtDecode} from 'jwt-decode'; // Korrigiere den Import
 
 const AuthContext = createContext();
 
@@ -10,9 +10,30 @@ export const AuthProvider = ({ children }) => {
     token: null,
     isLoggedIn: false,
     role: null,
-    user: null, // Benutzername oder E-Mail
-    userId: null, // User-ID im State speichern
+    user: null, 
   });
+
+  useEffect(() => {
+    // Beim Laden der Anwendung prüfen, ob ein Token im localStorage vorhanden ist
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        setAuthState({
+          token: token,
+          isLoggedIn: true,
+          role: decodedToken.role,
+          user: {
+            id: decodedToken.id,
+            name: decodedToken.email || decodedToken.name,
+          },
+        });
+      } catch (error) {
+        console.error('Fehler beim Decodieren des Tokens:', error);
+        localStorage.removeItem('authToken'); // Entferne das ungültige Token
+      }
+    }
+  }, []); // Leeres Abhängigkeitsarray, um nur beim Initialisieren auszuführen
 
   const login = (token) => {
     const decodedToken = jwtDecode(token);
@@ -22,9 +43,9 @@ export const AuthProvider = ({ children }) => {
       isLoggedIn: true,
       role: decodedToken.role,
       user: {
-        id: decodedToken.id,  // Hier wird die Benutzer-ID gespeichert
-        name: decodedToken.email || decodedToken.name // Benutzername oder E-Mail speichern
-      }
+        id: decodedToken.id,
+        name: decodedToken.email || decodedToken.name,
+      },
     });
   };
 
@@ -35,7 +56,6 @@ export const AuthProvider = ({ children }) => {
       isLoggedIn: false,
       role: null,
       user: null,
-      userId: null,
     });
   };
 

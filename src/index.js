@@ -12,9 +12,18 @@ import Settings from "./components/Login/Views/Settings";
 import Help from "./components/Login/Views/Help";
 import Navigation from "./header";
 import MainLayout from './MainLayout';
-import Overview from './components/Login/Views/admin/Overview'; // Importiere die Overview-Komponente
+import Overview from './components/Login/Views/admin/Overview';
 import AccountsManager from './components/Login/Views/admin/Accounts.Manager';
 import WalletTransaction from './components/Login/Views/Wallet.Transaction';
+import RealEstate from './components/Login/Views/RealEstate';
+import RealEstateAdministration from './components/Login/Views/RealEstate.Administration';
+import Home from "./components/Login/Views/Home";
+import Footer from "./footer";
+import { Box } from '@mui/material'; 
+import WalletMarket from "./components/Login/Views/Wallet.CryptoMarket";
+import ExtTravelHome from './external.site/extTravelHome'; // Importiere ExtTravelHome
+import AntarktisPage from './components/Travel/AntarktisPage'; // Importiere AntarktisPage
+import AntarktisUltima from './components/Travel/AntarktisUltima'; // Importiere AntarktisUltima
 
 const PrivateRoute = ({ element, requiredRole }) => {
   const { isLoggedIn, role } = useAuth();
@@ -34,42 +43,40 @@ const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/" element={<MainLayout />}>
-            <Route
-              path="dashboard"
-              element={<PrivateRoute element={<Dashboard />} />}
-            />
-            <Route
-              path="wallet"
-              element={<PrivateRoute element={<Wallet />} />}
-            />
-            <Route
-              path="/wallet/transactions"
-              element={<PrivateRoute element={<WalletTransaction />} />}
-            />
-            <Route
-              path="settings"
-              element={<PrivateRoute element={<Settings />} />}
-            />
-            <Route
-              path="help"
-              element={<PrivateRoute element={<Help />} />}
-            />
-            <Route
-              path="admin/overview"
-              element={<PrivateRoute element={<Overview />} requiredRole="admin" />}
-            />
-             <Route
-              path="admin/manageAccounts/"
-              element={<PrivateRoute element={<AccountsManager />} requiredRole="admin" />}
-            />
-          </Route>
-          <Route path="/" element={<Navigate to="/login" />} />
-        </Routes>
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+          <Navigation />
+          <Box sx={{ flexGrow: 1 }}>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/" element={<MainLayout />}>
+                <Route path="dashboard" element={<PrivateRoute element={<Dashboard />} />} />
+                <Route path="/home" element={<Home />} />
+                {/* <Route path="/about" element={<About />} /> */}
+                <Route path="/admin/reise-verwaltung/uebersicht/antarktis" element={<AntarktisPage />} />
+                <Route path="/admin/reise-verwaltung/uebersicht/antarktisultima" element={<AntarktisUltima />} />
+                <Route path="wallet" element={<PrivateRoute element={<Wallet />} />} />
+                <Route path="/wallet/transactions" element={<PrivateRoute element={<WalletTransaction />} />} />
+                <Route path="/wallet/market" element={<PrivateRoute element={<WalletMarket />} />} />
+                <Route path="settings" element={<PrivateRoute element={<Settings />} />} />
+                <Route path="help" element={<PrivateRoute element={<Help />} />} />
+                <Route path="admin/overview" element={<PrivateRoute element={<Overview />} requiredRole="admin" />} />
+                <Route path="admin/manageAccounts/" element={<PrivateRoute element={<AccountsManager />} requiredRole="admin" />} />
+                <Route path="admin/realEstate" element={<PrivateRoute element={<RealEstate />} requiredRole="admin" />} />
+                <Route path="admin/realEstate/administration" element={<PrivateRoute element={<RealEstateAdministration />} requiredRole="admin" />} />
+                
+                {/* Neue Route für Reise Verwaltung Übersicht */}
+                <Route path="admin/reise-verwaltung/uebersicht" element={<PrivateRoute element={<ExtTravelHome />} requiredRole="admin" />} />
+              </Route>
+              <Route path="/" element={<Navigate to="/login" />} />
+            </Routes>
+          </Box>
+          {/* Zeige den Footer nur auf den /home und /about Seiten */}
+          <Routes>
+            <Route path="/home" element={<Footer />} />
+            <Route path="/about" element={<Footer />} />
+          </Routes>
+        </Box>
       </BrowserRouter>
     </AuthProvider>
   );

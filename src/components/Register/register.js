@@ -2,152 +2,153 @@ import * as React from 'react';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Button, Alert, Box } from '@mui/material';
 import { useState } from 'react';
+import axios from 'axios';
 
 const SignUp = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [verifyPassword, setVerifyPassword] = useState('');
+  const [verifyPasswordError, setVerifyPasswordError] = useState(false);
+  const [usernameError, setUsernameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertSeverity, setAlertSeverity] = useState(''); // 'success', 'warning', etc.
 
-    const [Username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [VerifyPassword, setVerifyPassword] = useState('');
-    const [VerifyPasswordError, setVerifyPasswordError] = useState(false);
-    const [UsernameError, setUsernameError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
+  const handleSignUp = async (e) => {
+    e.preventDefault();
 
-    const handleSignUp = (e) => {
-        e.preventDefault();
-        
-        setUsernameError(false);
-        setPasswordError(false);
-        setVerifyPasswordError(false);
+    setUsernameError(false);
+    setPasswordError(false);
+    setVerifyPasswordError(false);
 
-        if (Username === '') {
-            setUsernameError(true);
-        }
-
-        if (password === '') {
-            setPasswordError(true);
-        }
-
-        if (VerifyPassword === '') {
-            setVerifyPasswordError(true);
-        }
-
-        if (password !== VerifyPassword) {
-            setPasswordError(true);
-            setVerifyPasswordError(true);
-        }
-
-        if (Username && password && VerifyPassword && password === VerifyPassword) {
-            console.log('Username: ' + Username + '\n' + 'Password: ' + password + '\n' + 'Verify password: ' + VerifyPassword);
-        }
+    if (username === '') {
+      setUsernameError(true);
     }
 
-    return (
-        <Box
-            sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '50vh', // Höhe des gesamten Viewports
-                backgroundColor: '#000', // Schwarzer Hintergrund
-                color: '#fff', // Weißer Text für bessere Lesbarkeit
-            }}
-        >
-            <form onSubmit={handleSignUp}>
-                <Stack
-                    direction='column'
-                    divider={<Divider orientation='horizontal' flexItem style={{ borderColor: '#444' }} />} // Angepasste Divider-Farbe
-                    spacing={3}
-                    sx={{
-                        width: '300px', // Breite des Formulars
-                        padding: '24px', // Zusätzliche Polsterung für bessere Benutzererfahrung
-                        backgroundColor: '#1e1e1e', // Dunkleres Grau für das Formular
-                        borderRadius: '10px', // Abgerundete Ecken für ein moderneres Aussehen
-                        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)', // Leichter Schatten für Tiefe
-                    }}
-                >
-                    <TextField 
-                        id='filled-basic' 
-                        label='Benutzername' 
-                        variant='filled' 
-                        type='text' 
-                        value={Username} 
-                        onChange={e => setUsername(e.target.value)} 
-                        error={UsernameError}
-                        helperText={UsernameError ? "Benutzername ist erforderlich" : ""}
-                        InputProps={{
-                            style: { color: '#fff' }, // Weißer Text
-                        }}
-                        InputLabelProps={{
-                            style: { color: '#888' }, // Grau für das Label
-                        }}
-                        sx={{
-                            backgroundColor: '#333', // Hintergrund der Textfelder
-                            borderRadius: '5px', // Abgerundete Ecken
-                        }}
-                    />
-                    <TextField 
-                        id='filled-basic' 
-                        label='Passwort' 
-                        variant='filled' 
-                        type='password' 
-                        value={password} 
-                        onChange={e => setPassword(e.target.value)} 
-                        error={passwordError}
-                        helperText={passwordError ? "Passwort ist erforderlich" : ""}
-                        InputProps={{
-                            style: { color: '#fff' }, // Weißer Text
-                        }}
-                        InputLabelProps={{
-                            style: { color: '#888' }, // Grau für das Label
-                        }}
-                        sx={{
-                            backgroundColor: '#333', // Hintergrund der Textfelder
-                            borderRadius: '5px', // Abgerundete Ecken
-                        }}
-                    />
-                    <TextField
-                        id='filled-basic'
-                        label='Passwort bestätigen'
-                        variant='filled'
-                        type='password'
-                        value={VerifyPassword}
-                        onChange={e => setVerifyPassword(e.target.value)}
-                        error={VerifyPasswordError}
-                        helperText={VerifyPasswordError ? "Passwörter nicht identisch" : ""}
-                        InputProps={{
-                            style: { color: '#fff' }, // Weißer Text
-                        }}
-                        InputLabelProps={{
-                            style: { color: '#888' }, // Grau für das Label
-                        }}
-                        sx={{
-                            backgroundColor: '#333', // Hintergrund der Textfelder
-                            borderRadius: '5px', // Abgerundete Ecken
-                        }}
-                    />
+    if (password === '') {
+      setPasswordError(true);
+    }
 
-                    <Button 
-                        variant='contained' 
-                        type='submit'
-                        sx={{
-                            backgroundColor: '#6200ea', // Dunkles Lila für den Button
-                            color: '#fff', // Weißer Text
-                            '&:hover': {
-                                backgroundColor: '#3700b3', // Etwas dunkler beim Hover
-                            },
-                            padding: '10px 0',
-                            borderRadius: '5px', // Abgerundete Ecken
-                        }}
-                    >
-                        Registrieren
-                    </Button>
-                </Stack>
-            </form>
-        </Box>
-    );
+    if (verifyPassword === '') {
+      setVerifyPasswordError(true);
+    }
+
+    if (password !== verifyPassword) {
+      setPasswordError(true);
+      setVerifyPasswordError(true);
+      setAlertMessage('Passwörter stimmen nicht überein.');
+      setAlertSeverity('warning');
+      return;
+    }
+
+    if (username && password && verifyPassword && password === verifyPassword) {
+      try {
+        const response = await axios.post('/api/registration/', { username, password });
+
+        if (response.data.status === 'USER_EXIST_N') {
+          setAlertMessage('Registrierung erfolgreich. Bitte loggen Sie sich mit Ihren Daten ein.');
+          setAlertSeverity('success');
+          setUsername('');
+          setPassword('');
+          setVerifyPassword('');
+        } else {
+          setAlertMessage('Registrierung nicht erfolgreich, bitte überprüfen Sie Ihren Benutzernamen.');
+          setAlertSeverity('warning');
+        }
+      } catch (error) {
+        setAlertMessage('Fehler bei der Registrierung.');
+        setAlertSeverity('warning');
+      }
+    }
+  };
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '50vh',
+        backgroundColor: '#000',
+        color: '#fff',
+      }}
+    >
+      <form onSubmit={handleSignUp}>
+        <Stack
+          direction='column'
+          divider={<Divider orientation='horizontal' flexItem style={{ borderColor: '#444' }} />}
+          spacing={3}
+          sx={{
+            width: '300px',
+            padding: '24px',
+            backgroundColor: '#1e1e1e',
+            borderRadius: '10px',
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
+          }}
+        >
+          <TextField
+            label='Benutzername'
+            variant='filled'
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            error={usernameError}
+            helperText={usernameError ? "Benutzername ist erforderlich" : ""}
+            InputProps={{ style: { color: '#fff' } }}
+            InputLabelProps={{ style: { color: '#888' } }}
+            sx={{ backgroundColor: '#333', borderRadius: '5px' }}
+          />
+          <TextField
+            label='Passwort'
+            variant='filled'
+            type='password'
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            error={passwordError}
+            helperText={passwordError ? "Passwort ist erforderlich" : ""}
+            InputProps={{ style: { color: '#fff' } }}
+            InputLabelProps={{ style: { color: '#888' } }}
+            sx={{ backgroundColor: '#333', borderRadius: '5px' }}
+          />
+          <TextField
+            label='Passwort bestätigen'
+            variant='filled'
+            type='password'
+            value={verifyPassword}
+            onChange={e => setVerifyPassword(e.target.value)}
+            error={verifyPasswordError}
+            helperText={verifyPasswordError ? "Passwörter nicht identisch" : ""}
+            InputProps={{ style: { color: '#fff' } }}
+            InputLabelProps={{ style: { color: '#888' } }}
+            sx={{ backgroundColor: '#333', borderRadius: '5px' }}
+          />
+
+          {alertMessage && (
+            <Alert severity={alertSeverity} variant="outlined">
+              {alertMessage}
+            </Alert>
+          )}
+
+          <Button
+            variant='contained'
+            type='submit'
+            sx={{
+              backgroundColor: '#6200ea',
+              color: '#fff',
+              '&:hover': {
+                backgroundColor: '#3700b3',
+              },
+              padding: '10px 0',
+              borderRadius: '5px',
+            }}
+          >
+            Registrieren
+          </Button>
+        </Stack>
+      </form>
+    </Box>
+  );
 }
 
 export default SignUp;

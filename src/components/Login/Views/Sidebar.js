@@ -5,21 +5,34 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import AssessmentIcon from '@mui/icons-material/Assessment'; // Icon für Übersicht
-import PeopleIcon from '@mui/icons-material/People'; // Icon für Benutzerverwaltung
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import PeopleIcon from '@mui/icons-material/People';
+import HouseIcon from '@mui/icons-material/House'; 
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../../context/AuthContext'; // Importiere den AuthContext
+import { useAuth } from '../../../context/AuthContext'; 
+import React from 'react';
+import TravelExploreIcon from '@mui/icons-material/TravelExplore'; // Icon für Reise Verwaltung
 
 const drawerWidth = 240;
 
 const Sidebar = () => {
   const [adminOpen, setAdminOpen] = useState(false);
-  const { role, user } = useAuth(); // Hole die Rolle und den Benutzernamen des aktuellen Benutzers
+  const [realEstateOpen, setRealEstateOpen] = useState(false);
+  const [travelOpen, setTravelOpen] = useState(false); // Zustand für Reise Verwaltung
+  const { role, user } = useAuth();
 
   const handleAdminClick = () => {
     setAdminOpen(!adminOpen);
+  };
+
+  const handleRealEstateClick = () => {
+    setRealEstateOpen(!realEstateOpen);
+  };
+
+  const handleTravelClick = () => {
+    setTravelOpen(!travelOpen); // Öffnet und schließt das Reise Verwaltung Untermenü
   };
 
   return (
@@ -31,8 +44,8 @@ const Sidebar = () => {
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
-          backgroundColor: '#1e1e1e', // Dunkler Hintergrund für die Sidebar
-          color: '#ffffff', // Weißer Text für die Sidebar
+          backgroundColor: '#1e1e1e',
+          color: '#ffffff',
         },
       }}
     >
@@ -43,19 +56,18 @@ const Sidebar = () => {
           alignItems: 'center',
           justifyContent: 'center',
           padding: '16px',
-          backgroundColor: '#6200ea', // Hauptfarbe für den Header der Sidebar
-          color: '#ffffff', // Weißer Text
+          backgroundColor: '#6200ea',
+          color: '#ffffff',
           fontWeight: 'bold',
           fontSize: '18px',
         }}
       >
         Menü
-        {/* Benutzerprofil mit Bild anzeigen */}
         <Avatar sx={{ marginTop: '16px', width: 56, height: 56 }}>
-          {user?.name?.charAt(0).toUpperCase() || 'U'} {/* Initialen des Benutzers anzeigen */}
+          {user?.name?.charAt(0).toUpperCase() || 'U'} 
         </Avatar>
         <Typography variant="subtitle1" sx={{ marginTop: '8px', fontWeight: 'bold' }}>
-          {user?.name || 'Benutzername'} {/* Fallback auf "Benutzername" wenn der Benutzername leer ist */}
+          {user?.name || 'Benutzername'} 
         </Typography>
       </Box>
       <Divider sx={{ backgroundColor: '#444' }} />
@@ -66,11 +78,11 @@ const Sidebar = () => {
           to="/dashboard" 
           sx={{
             '&:hover': {
-              backgroundColor: '#6200ea', // Leuchtendes Lila bei Hover
+              backgroundColor: '#6200ea',
             },
           }}
         >
-          <ListItemIcon sx={{ color: '#ffffff' }}> {/* Weißes Icon */}
+          <ListItemIcon sx={{ color: '#ffffff' }}> 
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
@@ -82,11 +94,11 @@ const Sidebar = () => {
           to="/wallet" 
           sx={{
             '&:hover': {
-              backgroundColor: '#6200ea', // Leuchtendes Lila bei Hover
+              backgroundColor: '#6200ea',
             },
           }}
         >
-          <ListItemIcon sx={{ color: '#ffffff' }}> {/* Weißes Icon */}
+          <ListItemIcon sx={{ color: '#ffffff' }}> 
             <AccountBalanceWalletIcon />
           </ListItemIcon>
           <ListItemText primary="Wallet" />
@@ -98,11 +110,11 @@ const Sidebar = () => {
           to="/settings" 
           sx={{
             '&:hover': {
-              backgroundColor: '#6200ea', // Leuchtendes Lila bei Hover
+              backgroundColor: '#6200ea',
             },
           }}
         >
-          <ListItemIcon sx={{ color: '#ffffff' }}> {/* Weißes Icon */}
+          <ListItemIcon sx={{ color: '#ffffff' }}> 
             <SettingsIcon />
           </ListItemIcon>
           <ListItemText primary="Einstellungen" />
@@ -114,17 +126,16 @@ const Sidebar = () => {
           to="/help" 
           sx={{
             '&:hover': {
-              backgroundColor: '#6200ea', // Leuchtendes Lila bei Hover
+              backgroundColor: '#6200ea',
             },
           }}
         >
-          <ListItemIcon sx={{ color: '#ffffff' }}> {/* Weißes Icon */}
+          <ListItemIcon sx={{ color: '#ffffff' }}> 
             <HelpIcon />
           </ListItemIcon>
           <ListItemText primary="Hilfe" />
         </ListItem>
 
-        {/* Admin-Bereich nur anzeigen, wenn der Benutzer Admin ist */}
         {role === 'admin' && (
           <>
             <ListItem 
@@ -132,18 +143,17 @@ const Sidebar = () => {
               onClick={handleAdminClick}
               sx={{
                 '&:hover': {
-                  backgroundColor: '#6200ea', // Leuchtendes Lila bei Hover
+                  backgroundColor: '#6200ea',
                 },
               }}
             >
-              <ListItemIcon sx={{ color: '#ffffff' }}> {/* Weißes Icon */}
-                <AdminPanelSettingsIcon /> {/* Icon für Admin */}
+              <ListItemIcon sx={{ color: '#ffffff' }}>
+                <AdminPanelSettingsIcon />
               </ListItemIcon>
               <ListItemText primary="Admin" />
               {adminOpen ? <ExpandLess sx={{ color: '#ffffff' }} /> : <ExpandMore sx={{ color: '#ffffff' }} />}
             </ListItem>
             
-            {/* Kindelemente von Admin */}
             <Collapse in={adminOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItem 
@@ -153,12 +163,12 @@ const Sidebar = () => {
                   sx={{ 
                     pl: 4,
                     '&:hover': {
-                      backgroundColor: '#6200ea', // Leuchtendes Lila bei Hover
+                      backgroundColor: '#6200ea',
                     },
                   }}
                 >
-                  <ListItemIcon sx={{ color: '#ffffff' }}> {/* Weißes Icon */}
-                    <AssessmentIcon /> {/* Icon für Übersicht */}
+                  <ListItemIcon sx={{ color: '#ffffff' }}>
+                    <AssessmentIcon />
                   </ListItemIcon>
                   <ListItemText primary="Übersicht" />
                 </ListItem>
@@ -169,15 +179,109 @@ const Sidebar = () => {
                   sx={{ 
                     pl: 4,
                     '&:hover': {
-                      backgroundColor: '#6200ea', // Leuchtendes Lila bei Hover
+                      backgroundColor: '#6200ea',
                     },
                   }}
                 >
-                  <ListItemIcon sx={{ color: '#ffffff' }}> {/* Weißes Icon */}
-                    <PeopleIcon /> {/* Icon für Benutzerverwaltung */}
+                  <ListItemIcon sx={{ color: '#ffffff' }}>
+                    <PeopleIcon />
                   </ListItemIcon>
                   <ListItemText primary="Benutzerverwaltung" />
                 </ListItem>
+
+                {/* Immobilien Verwaltung */}
+                <ListItem 
+                  button 
+                  onClick={handleRealEstateClick} 
+                  sx={{
+                    pl: 4,
+                    '&:hover': {
+                      backgroundColor: '#6200ea',
+                    },
+                  }}
+                >
+                  <ListItemIcon sx={{ color: '#ffffff' }}>
+                    <HouseIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Immobilien Verwaltung" />
+                  {realEstateOpen ? <ExpandLess sx={{ color: '#ffffff' }} /> : <ExpandMore sx={{ color: '#ffffff' }} />}
+                </ListItem>
+
+                <Collapse in={realEstateOpen} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItem
+                      button
+                      component={Link}
+                      to="/admin/realEstate"
+                      sx={{
+                        pl: 8,
+                        '&:hover': {
+                          backgroundColor: '#6200ea',
+                        },
+                      }}
+                    >
+                      <ListItemIcon sx={{ color: '#ffffff' }}>
+                        <HouseIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Übersicht" />
+                    </ListItem>
+                    <ListItem
+                      button
+                      component={Link}
+                      to="/admin/realEstate/administration"
+                      sx={{
+                        pl: 8,
+                        '&:hover': {
+                          backgroundColor: '#6200ea',
+                        },
+                      }}
+                    >
+                      <ListItemIcon sx={{ color: '#ffffff' }}>
+                        <HouseIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Administration" />
+                    </ListItem>
+                  </List>
+                </Collapse>
+
+                {/* Reise Verwaltung */}
+                <ListItem 
+                  button 
+                  onClick={handleTravelClick} 
+                  sx={{
+                    pl: 4,
+                    '&:hover': {
+                      backgroundColor: '#6200ea',
+                    },
+                  }}
+                >
+                  <ListItemIcon sx={{ color: '#ffffff' }}>
+                    <TravelExploreIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Reise Verwaltung" />
+                  {travelOpen ? <ExpandLess sx={{ color: '#ffffff' }} /> : <ExpandMore sx={{ color: '#ffffff' }} />}
+                </ListItem>
+
+                <Collapse in={travelOpen} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItem
+                      button
+                      component={Link}
+                      to="/admin/reise-verwaltung/uebersicht"
+                      sx={{
+                        pl: 8,
+                        '&:hover': {
+                          backgroundColor: '#6200ea',
+                        },
+                      }}
+                    >
+                      <ListItemIcon sx={{ color: '#ffffff' }}>
+                        <TravelExploreIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Übersicht" />
+                    </ListItem>
+                  </List>
+                </Collapse>
               </List>
             </Collapse>
           </>

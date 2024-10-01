@@ -3,35 +3,36 @@ import axios from 'axios';
 import { Box, Breadcrumbs, Typography, Link, Grid, Paper, Divider } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useAuth } from '../../../context/AuthContext'; // Hole die Auth-Informationen
-
+import WalletTransaction from './Wallet.Transaction';
+import WalletMarket from './Wallet.CryptoMarket';
 
 // Komponenten für Transaktionen und Crypto Market
-const WalletTransaction = () => (
-  <Box sx={{ marginTop: '40px' }}>
-    <Typography variant="h4" gutterBottom>Transaktionen</Typography>
-    <Typography variant="body1" sx={{ color: '#bbb', marginBottom: '16px' }}>
-      Hier könnte die Transaktionsübersicht angezeigt werden.
-    </Typography>
-    <Divider sx={{ backgroundColor: '#444' }} />
-    <Typography variant="body2" sx={{ color: '#bbb', marginTop: '16px' }}>
-      Details zu den Transaktionen werden hier bald hinzugefügt.
-    </Typography>
-  </Box>
-);
+// const WalletTransaction = () => (
+//   <Box sx={{ marginTop: '40px' }}>
+//     <Typography variant="h4" gutterBottom>Transaktionen</Typography>
+//     <Typography variant="body1" sx={{ color: '#bbb', marginBottom: '16px' }}>
+//       Hier könnte die Transaktionsübersicht angezeigt werden.
+//     </Typography>
+//     <Divider sx={{ backgroundColor: '#444' }} />
+//     <Typography variant="body2" sx={{ color: '#bbb', marginTop: '16px' }}>
+//       Details zu den Transaktionen werden hier bald hinzugefügt.
+//     </Typography>
+//   </Box>
+// );
 
-const CryptoMarket = () => (
-  <Box sx={{ marginTop: '40px' }}>
-    <Typography variant="h4" gutterBottom>Crypto Market</Typography>
-    <Typography variant="body1" sx={{ color: '#bbb', marginBottom: '16px' }}>
-      Hier könnte eine Übersicht der aktuellen Kryptowährungskurse angezeigt werden.
-      Dies könnte auch als grafische Darstellung oder Preistrend implementiert werden.
-    </Typography>
-    <Divider sx={{ backgroundColor: '#444' }} />
-    <Typography variant="body2" sx={{ color: '#bbb', marginTop: '16px' }}>
-      Eine detaillierte Marktübersicht wird bald hinzugefügt.
-    </Typography>
-  </Box>
-);
+// const CryptoMarket = () => (
+//   <Box sx={{ marginTop: '40px' }}>
+//     <Typography variant="h4" gutterBottom>Crypto Market</Typography>
+//     <Typography variant="body1" sx={{ color: '#bbb', marginBottom: '16px' }}>
+//       Hier könnte eine Übersicht der aktuellen Kryptowährungskurse angezeigt werden.
+//       Dies könnte auch als grafische Darstellung oder Preistrend implementiert werden.
+//     </Typography>
+//     <Divider sx={{ backgroundColor: '#444' }} />
+//     <Typography variant="body2" sx={{ color: '#bbb', marginTop: '16px' }}>
+//       Eine detaillierte Marktübersicht wird bald hinzugefügt.
+//     </Typography>
+//   </Box>
+// );
 
 // Wallet-Seite
 const Wallet = () => {
@@ -119,7 +120,7 @@ const Wallet = () => {
       )}
 
       {activeSection === 'transactions' && <WalletTransaction />}
-      {activeSection === 'market' && <CryptoMarket />}
+      {activeSection === 'market' && <WalletMarket />}
     </Box>
   );
 };

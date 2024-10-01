@@ -21,7 +21,7 @@ const Help = () => {
             <ListItemText
               primary="Dashboard"
               primaryTypographyProps={{ variant: 'h6', fontWeight: 'bold' }}
-              secondary="Hier erhalten Sie eine Übersicht über alle wichtigen Informationen. Dazu gehören aktuelle Benachrichtigungen, Ihr Kontostand und eine Zusammenfassung der letzten Aktivitäten. Das Dashboard ist der zentrale Ausgangspunkt, von dem aus Sie auf andere Funktionen zugreifen können."
+              secondary="Das Dashboard zeigt alle wichtigen Informationen auf einen Blick. Hier können Sie Ihren aktuellen Kontostand, Transaktionshistorie und Benachrichtigungen einsehen. Benutzer können auch ihre letzten Aktivitäten und Wallet-Details überprüfen."
               secondaryTypographyProps={{ variant: 'body1', color: '#bbb' }}
             />
           </ListItem>
@@ -31,7 +31,7 @@ const Help = () => {
             <ListItemText
               primary="Wallet"
               primaryTypographyProps={{ variant: 'h6', fontWeight: 'bold' }}
-              secondary="Hier können Sie Ihre digitale Geldbörse verwalten. Sie können Ihre aktuelle Wallet-Adresse einsehen und bei Bedarf ändern. Diese Wallet-Adresse wird verwendet, um Zahlungen zu empfangen. Stellen Sie sicher, dass die eingegebene Adresse korrekt ist, um Probleme bei Transaktionen zu vermeiden."
+              secondary="In der Wallet-Übersicht können Sie Ihre Wallet-Adresse einsehen und verwalten. Überprüfen Sie den aktuellen Kontostand und verfolgen Sie eingehende sowie ausgehende Transaktionen. Für mehr Sicherheit können Sie auch Ihre Wallet-Einstellungen ändern."
               secondaryTypographyProps={{ variant: 'body1', color: '#bbb' }}
             />
           </ListItem>
@@ -41,7 +41,7 @@ const Help = () => {
             <ListItemText
               primary="Einstellungen"
               primaryTypographyProps={{ variant: 'h6', fontWeight: 'bold' }}
-              secondary="In den Einstellungen können Sie persönliche Informationen ändern, wie z.B. Ihr Passwort oder Ihr Profilbild. Es wird empfohlen, Ihr Passwort regelmäßig zu aktualisieren, um die Sicherheit Ihres Kontos zu gewährleisten. Zudem können Sie hier auch weitere Kontoeinstellungen vornehmen, um Ihre Benutzererfahrung anzupassen."
+              secondary="Ändern Sie Ihre persönlichen Einstellungen, wie z.B. Ihr Passwort, Profilbild oder andere Kontoinformationen. Sie können hier auch Sicherheitseinstellungen anpassen, um Ihren Account vor unbefugtem Zugriff zu schützen."
               secondaryTypographyProps={{ variant: 'body1', color: '#bbb' }}
             />
           </ListItem>
@@ -51,11 +51,12 @@ const Help = () => {
             <ListItemText
               primary="Hilfe"
               primaryTypographyProps={{ variant: 'h6', fontWeight: 'bold' }}
-              secondary="Auf dieser Seite finden Sie detaillierte Erklärungen zu allen verfügbaren Routen und Funktionen. Diese Hilfeseite dient als Leitfaden, um Ihnen den Umgang mit der Plattform zu erleichtern. Sollten Sie weitere Fragen haben, steht Ihnen unser Support-Team zur Verfügung."
+              secondary="Hier finden Sie detaillierte Anleitungen und Informationen zu den verschiedenen Funktionen der Plattform. Wenn Sie weitere Fragen haben, können Sie sich auch an den Support wenden."
               secondaryTypographyProps={{ variant: 'body1', color: '#bbb' }}
             />
           </ListItem>
-          
+
+          {/* Zusätzliche Erklärungen für Admin-Routen */}
           {role === 'admin' && (
             <>
               <Divider sx={{ backgroundColor: '#6200ea', marginY: '24px' }} />
@@ -67,7 +68,7 @@ const Help = () => {
                 <ListItemText
                   primary="Admin Übersicht"
                   primaryTypographyProps={{ variant: 'h6', fontWeight: 'bold' }}
-                  secondary="Diese Seite bietet eine Übersicht für Administratoren, um wichtige administrative Aufgaben und Benachrichtigungen zu überwachen. Hier können Admins einen schnellen Überblick über Systemwarnungen und wichtige Ereignisse erhalten."
+                  secondary="Die Admin-Übersicht bietet einen zentralen Punkt, um administrative Aufgaben zu überwachen. Hier können Admins auf wichtige Systeminformationen zugreifen, wie z.B. aktuelle Benutzeraktivitäten, Systemstatus und Warnmeldungen."
                   secondaryTypographyProps={{ variant: 'body1', color: '#bbb' }}
                 />
               </ListItem>
@@ -77,7 +78,27 @@ const Help = () => {
                 <ListItemText
                   primary="Benutzerverwaltung"
                   primaryTypographyProps={{ variant: 'h6', fontWeight: 'bold' }}
-                  secondary="Auf dieser Seite können Administratoren alle registrierten Benutzer verwalten. Dies umfasst das Erstellen, Bearbeiten und Löschen von Benutzerkonten sowie das Zuweisen von Rollen. Diese Seite ist für die Verwaltung von Benutzerzugriffen und -rechten unerlässlich."
+                  secondary="Administratoren können alle Benutzerkonten verwalten. Dazu gehören das Erstellen, Bearbeiten und Löschen von Benutzerprofilen sowie das Zuweisen von spezifischen Rollen. Zudem können Admins Benutzeraktivitäten überwachen und gegebenenfalls Maßnahmen ergreifen."
+                  secondaryTypographyProps={{ variant: 'body1', color: '#bbb' }}
+                />
+              </ListItem>
+              <Divider sx={{ backgroundColor: '#444', marginY: '16px' }} />
+
+              <ListItem alignItems="flex-start">
+                <ListItemText
+                  primary="Immobilien Verwaltung"
+                  primaryTypographyProps={{ variant: 'h6', fontWeight: 'bold' }}
+                  secondary="Administratoren können Immobilienanzeigen hinzufügen, bearbeiten und löschen. Die Verwaltung von Immobilien ermöglicht es, verschiedene Anzeigen mit detaillierten Beschreibungen, Preisen und Bildern zu erstellen. Admins können hier auch bestehende Anzeigen aktualisieren oder entfernen."
+                  secondaryTypographyProps={{ variant: 'body1', color: '#bbb' }}
+                />
+              </ListItem>
+              <Divider sx={{ backgroundColor: '#444', marginY: '16px' }} />
+
+              <ListItem alignItems="flex-start">
+                <ListItemText
+                  primary="Immobilien Administration"
+                  primaryTypographyProps={{ variant: 'h6', fontWeight: 'bold' }}
+                  secondary="Über die Immobilien-Administration können Administratoren neue Immobilien in die Plattform einpflegen. Sie können hier die Titel, Beschreibungen, Preise und Bilder hinzufügen sowie bestehende Immobilieneinträge aktualisieren."
                   secondaryTypographyProps={{ variant: 'body1', color: '#bbb' }}
                 />
               </ListItem>
