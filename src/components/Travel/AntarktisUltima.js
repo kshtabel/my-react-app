@@ -1,7 +1,26 @@
-import React from 'react';
-import { Typography, Box, Grid, Container, Button } from '@mui/material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import React, { useState } from 'react';
+import { Typography, Box, Grid, Container, Button, CardMedia, Modal } from '@mui/material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+
+// Modal Styles
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  maxWidth: '90%',
+  maxHeight: '90%',
+  backgroundColor: '#fff',
+  boxShadow: 24,
+  padding: '20px',
+  outline: 'none',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+};
 
 const images = [
   {
@@ -19,6 +38,16 @@ const images = [
 ];
 
 export default function AntarktisUltima() {
+  const [openModal, setOpenModal] = useState(false);
+  const [modalImage, setModalImage] = useState(null);
+
+  const handleOpenModal = (imageSrc) => {
+    setModalImage(imageSrc);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => setOpenModal(false);
+
   return (
     <Container
       sx={{
@@ -28,66 +57,127 @@ export default function AntarktisUltima() {
         padding: '40px',
       }}
     >
-      {/* Textbeschreibung oberhalb der Bilder */}
-      <Typography
-        variant="h3"
-        gutterBottom
-        sx={{ color: '#d4a373', fontWeight: 'bold', textAlign: 'center' }}
-      >
-        EXPEDITION IN DIE ANTARKTIS
-      </Typography>
-      <Typography variant="body1" sx={{ marginBottom: '20px', textAlign: 'center', color: '#bbb' }}>
-        Mit Ultima Antarctic Expeditions
-      </Typography>
+      {/* Header Image */}
+      <CardMedia
+        component="img"
+        image="https://www.designreisen.de/assets/destinations/_processed_/0/7/csm_ULTIMA_ICE_TUNNEL_1_-_Photo_by_Christoph_Hoebenreich_72dc5435e2.jpg"
+        alt="Antarktis Ultima"
+        sx={{
+          width: '100%',
+          height: '600px',
+          borderRadius: '8px',
+          marginBottom: '20px',
+          boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
+        }}
+      />
 
-      <Box sx={{ marginBottom: '40px', color: '#bbb' }}>
-        <Typography variant="body1" sx={{ marginBottom: '20px' }}>
-          Das Abenteuer beginnt im pulsierenden Kapstadt, einer der schönsten Städte der Welt. Nur 5,5 bis 6 Flugstunden entfernt, landet man auf der 3 Kilometer langen Eislandebahn im „Deep Field“ der Antarktis. Eine weite, unberührte Wildnis aus Eis und Schnee breitet sich aus und weckt Staunen und Abenteuerlust.
+      {/* Title and Description */}
+      <Box sx={{ backgroundColor: '#1e1e1e', padding: '20px', borderRadius: '8px', marginBottom: '40px' }}>
+        <Typography variant="h4" sx={{ color: '#d4a373', fontWeight: 'bold', marginBottom: '10px' }}>
+          Ultima Antarctica - Expedition
         </Typography>
-        <Typography variant="body1" sx={{ marginBottom: '20px' }}>
-          Vor gewaltigen, jahrhundertealten Eiswänden stehen, durch blau schimmernde Gletschertunnel navigieren und die eisigen Wunder der Natur bestaunen. Die faszinierende Weite des Kontinentalen Eisschildes raubt einem den Atem.
-        </Typography>
-        <Typography variant="body1" sx={{ marginBottom: '20px' }}>
-          Eine Mini-Expedition zu einer Kolonie von 28.000 Kaiserpinguinen ist demütigend und aufregend zugleich.
-        </Typography>
-        <Typography variant="body1" sx={{ marginBottom: '20px' }}>
-          Und dann das ultimative Ziel – eine Expedition zum südlichsten Punkt der Erde, dem geografischen Südpol. Ein Once-in-a-Lifetime Erlebnis par excellence!
-        </Typography>
-        <Typography variant="body1" sx={{ marginBottom: '20px' }}>
-          Das Oasis Camp bietet Einzel- und Doppelzimmer für 10-12 Gäste. Hier genießen Sie herzliche Gastfreundschaft, Fünf-Sterne-Service und komfortable, moderne Zimmer mit Panoramablick auf die schneebedeckten Nunatak-Berge und einen gefrorenen See.
+        <Typography variant="body1" sx={{ color: '#bbb' }}>
+          Faszination der eisigen Wunderwelt: Trotz einer Jahresdurchschnittstemperatur von -55°C übt der weiße Kontinent eine fast magische Anziehungskraft aus. Der Kontinent umfasst die um den Südpol gelegenen Land- und Meeresgebiete, von denen knapp 98% mit Eis bedeckt sind. Es ist ein Abenteuer in eine unberührte Wildnis, die Staunen und Ehrfurcht weckt.
         </Typography>
       </Box>
 
-      {/* Bildgalerie */}
+      {/* Icons Section */}
+      <Grid container spacing={2} sx={{ marginBottom: '40px' }}>
+        <Grid item xs={12} sm={4}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#1e1e1e', padding: '20px', borderRadius: '8px' }}>
+            <LocationOnIcon sx={{ color: '#d4a373', fontSize: '40px', marginRight: '10px' }} />
+            <Box>
+              <Typography variant="h6" sx={{ color: '#d4a373' }}>Standort</Typography>
+              <Typography variant="body2" sx={{ color: '#bbb' }}>Antarktis, Ultima</Typography>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#1e1e1e', padding: '20px', borderRadius: '8px' }}>
+            <AccessTimeIcon sx={{ color: '#d4a373', fontSize: '40px', marginRight: '10px' }} />
+            <Box>
+              <Typography variant="h6" sx={{ color: '#d4a373' }}>Dauer</Typography>
+              <Typography variant="body2" sx={{ color: '#bbb' }}>Variabel</Typography>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#1e1e1e', padding: '20px', borderRadius: '8px' }}>
+            <AcUnitIcon sx={{ color: '#d4a373', fontSize: '40px', marginRight: '10px' }} />
+            <Box>
+              <Typography variant="h6" sx={{ color: '#d4a373' }}>Temperatur</Typography>
+              <Typography variant="body2" sx={{ color: '#bbb' }}>Durchschnittlich -55°C</Typography>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+
+      {/* Gallery */}
+      <Typography variant="h5" sx={{ color: '#d4a373', marginBottom: '20px', fontWeight: 'bold' }}>
+        Galerie
+      </Typography>
       <Grid container spacing={3}>
         {images.map((image, index) => (
           <Grid item xs={12} md={4} key={index}>
-            <Box component="img" src={image.src} alt={image.alt} sx={{ width: '100%', borderRadius: '8px' }} />
+            <Box
+              component="img"
+              src={image.src}
+              alt={image.alt}
+              onClick={() => handleOpenModal(image.src)}
+              sx={{
+                width: '100%',
+                borderRadius: '8px',
+                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
+                cursor: 'pointer',
+              }}
+            />
           </Grid>
         ))}
       </Grid>
 
-      {/* Navigationsbuttons */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+      {/* Modal für vergrößertes Bild */}
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box sx={modalStyle}>
+          {modalImage && (
+            <>
+              <CardMedia
+                component="img"
+                src={modalImage}
+                alt="Vergrößertes Bild"
+                sx={{ width: '100%', borderRadius: '12px' }}
+              />
+              <Button
+                onClick={handleCloseModal}
+                sx={{ marginTop: '20px', backgroundColor: '#d4a373', color: '#121212', '&:hover': { backgroundColor: '#af814c' } }}
+                variant="contained"
+              >
+                Schließen
+              </Button>
+            </>
+          )}
+        </Box>
+      </Modal>
+
+      {/* Booking Button */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
         <Button
-          startIcon={<ArrowBackIosIcon />}
+          variant="contained"
           sx={{
-            color: '#d4a373',
-            borderColor: '#d4a373',
-            '&:hover': { backgroundColor: '#d4a373', color: '#121212' },
+            backgroundColor: '#d4a373',
+            color: '#121212',
+            fontWeight: 'bold',
+            padding: '10px 20px',
+            '&:hover': {
+              backgroundColor: '#af814c',
+            },
           }}
         >
-          Zurück
-        </Button>
-        <Button
-          endIcon={<ArrowForwardIosIcon />}
-          sx={{
-            color: '#d4a373',
-            borderColor: '#d4a373',
-            '&:hover': { backgroundColor: '#d4a373', color: '#121212' },
-          }}
-        >
-          Weiter
+          Jetzt Buchen
         </Button>
       </Box>
     </Container>

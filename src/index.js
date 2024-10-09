@@ -24,6 +24,8 @@ import WalletMarket from "./components/Login/Views/Wallet.CryptoMarket";
 import ExtTravelHome from './external.site/extTravelHome'; // Importiere ExtTravelHome
 import AntarktisPage from './components/Travel/AntarktisPage'; // Importiere AntarktisPage
 import AntarktisUltima from './components/Travel/AntarktisUltima'; // Importiere AntarktisUltima
+import Africa_subMenue from "./components/Travel/Africa_subMenue";
+import SouthAfrica_TopDest from "./components/Travel/Afria_subMenue_Overview";
 
 const PrivateRoute = ({ element, requiredRole }) => {
   const { isLoggedIn, role } = useAuth();
@@ -55,6 +57,8 @@ const App = () => {
                 {/* <Route path="/about" element={<About />} /> */}
                 <Route path="/admin/reise-verwaltung/uebersicht/antarktis" element={<AntarktisPage />} />
                 <Route path="/admin/reise-verwaltung/uebersicht/antarktisultima" element={<AntarktisUltima />} />
+                <Route path="/admin/reise-verwaltung/uebersicht/afria_subCountries" element={<Africa_subMenue />} />
+                <Route path="/admin/reise-verwaltung/uebersicht/afria_subCountries/overview" element={<SouthAfrica_TopDest />} />
                 <Route path="wallet" element={<PrivateRoute element={<Wallet />} />} />
                 <Route path="/wallet/transactions" element={<PrivateRoute element={<WalletTransaction />} />} />
                 <Route path="/wallet/market" element={<PrivateRoute element={<WalletMarket />} />} />
@@ -73,7 +77,7 @@ const App = () => {
           </Box>
           {/* Zeige den Footer nur auf den /home und /about Seiten */}
           <Routes>
-            <Route path="/home" element={<Footer />} />
+            {/* <Route path="/home" element={<Footer />} /> */}
             <Route path="/about" element={<Footer />} />
           </Routes>
         </Box>
