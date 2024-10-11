@@ -26,6 +26,7 @@ import AntarktisPage from './components/Travel/AntarktisPage'; // Importiere Ant
 import AntarktisUltima from './components/Travel/AntarktisUltima'; // Importiere AntarktisUltima
 import Africa_subMenue from "./components/Travel/Africa_subMenue";
 import SouthAfrica_TopDest from "./components/Travel/Afria_subMenue_Overview";
+import AfricaSubMenueJohannesburg from "./components/Travel/Africa_subMenue_Johannesburg_premiumColl";
 
 const PrivateRoute = ({ element, requiredRole }) => {
   const { isLoggedIn, role } = useAuth();
@@ -59,6 +60,7 @@ const App = () => {
                 <Route path="/admin/reise-verwaltung/uebersicht/antarktisultima" element={<AntarktisUltima />} />
                 <Route path="/admin/reise-verwaltung/uebersicht/afria_subCountries" element={<Africa_subMenue />} />
                 <Route path="/admin/reise-verwaltung/uebersicht/afria_subCountries/overview" element={<SouthAfrica_TopDest />} />
+                <Route path="/admin/reise-verwaltung/uebersicht/afria_subCountries/overview/johannesburg" element={<AfricaSubMenueJohannesburg />} />
                 <Route path="wallet" element={<PrivateRoute element={<Wallet />} />} />
                 <Route path="/wallet/transactions" element={<PrivateRoute element={<WalletTransaction />} />} />
                 <Route path="/wallet/market" element={<PrivateRoute element={<WalletMarket />} />} />

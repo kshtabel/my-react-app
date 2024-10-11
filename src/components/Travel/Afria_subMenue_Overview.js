@@ -64,7 +64,7 @@ const SouthAfrica_TopDest = () => {
         {/* Teaser Grid */}
         <Grid container spacing={4}>
           <TeaserBox
-            link="/admin/reise-verwaltung/uebersicht/afrika/suedafrika/johannesburg"
+            link="/admin/reise-verwaltung/uebersicht/afria_subCountries/overview/johannesburg"
             imgSrc="https://www.designreisen.de/fileadmin/_processed_/a/2/csm_ds_johannesburg_c7b6589adf.jpg"
             title="Johannesburg"
           />
