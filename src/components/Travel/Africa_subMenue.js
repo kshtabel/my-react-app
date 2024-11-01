@@ -3,16 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Grid, Card, CardMedia, CardContent, Typography, Container, Box, Button } from '@mui/material';
 
 // TeaserBox component matching the design in extTravelHome
-const TeaserBox = ({ link, imgSrc, title, dynamicLink }) => {
+const TeaserBox = ({ link, imgSrc, title }) => {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
     e.preventDefault();
-    if (dynamicLink) {
-      navigate(dynamicLink);
-    } else {
-      window.location.href = link;
-    }
+    window.location.href = link;
   };
 
   return (
@@ -33,12 +29,23 @@ const TeaserBox = ({ link, imgSrc, title, dynamicLink }) => {
           overflow: 'hidden',
         }}
       >
-        <CardMedia component="img" image={imgSrc} alt={title} sx={{ height: 250, objectFit: 'cover' }} />
-        <CardContent sx={{ padding: 2, textAlign: 'center', backgroundColor: '#333', color: '#fff' }}>
-          <Typography variant="h6" sx={{ textTransform: 'uppercase', fontWeight: 'bold' }}>
-            {title}
-          </Typography>
-        </CardContent>
+        <Box sx={{ position: 'relative' }}>
+          <CardMedia component="img" image={imgSrc} alt={title} sx={{ height: 250, objectFit: 'cover' }} />
+          <Box
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              width: '100%',
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              color: '#fff',
+              padding: 1,
+              textAlign: 'center',
+            }}
+          >
+            <Typography variant="body1">{title}</Typography>
+          </Box>
+        </Box>
       </Card>
     </Grid>
   );
@@ -79,7 +86,6 @@ const AfricaSubMenue = () => {
             link="/admin/reise-verwaltung/uebersicht/afrika/suedafrika"
             imgSrc="https://www.designreisen.de/fileadmin/_processed_/7/b/csm_Teaser_Suedafrika_17c99ec7e7.jpg"
             title="Südafrika"
-            dynamicLink="/admin/reise-verwaltung/uebersicht/afria_subCountries/overview"
           />
           <TeaserBox
             link="/admin/reise-verwaltung/uebersicht/afrika/kenia"

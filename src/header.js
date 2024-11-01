@@ -4,7 +4,31 @@ import * as React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom'; 
 import { useAuth } from './context/AuthContext'; 
 import { Facebook, Twitter, Instagram, LinkedIn } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import { Button, Box, Typography, Avatar, IconButton, styled, GlobalStyles } from '@mui/material';
+import { SOCIAL_MEDIA_URLS } from './config';
+
+const LogoLink = styled('a')(({ theme }) => ({
+  textDecoration: 'none',
+  marginRight: '48px',
+  display: 'inline-block',
+  maxWidth: '238px',
+}));
+
+const LogoImage = styled('img')(({ theme }) => ({
+  maxWidth: '100%',
+}));
+
+const FlexBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+}));
+
+const ListBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  pl: 0,
+  mb: 0,
+  listStyleType: 'none',
+}));
 
 export default function MainHeader() {
   const { isLoggedIn, logout } = useAuth(); 
@@ -13,73 +37,81 @@ export default function MainHeader() {
 
   return (
     <>
-      <div
-        className="header-wrapper w-nav"
-        role="banner"
-        style={{
-          background: '#000', // Set background to black to match the dark theme
+      <Box
+        component="header"
+        sx={{
+          background: '#1C1C1E',
           zIndex: 1000,
           boxSizing: 'border-box',
           position: 'relative',
-          opacity: 1
+          opacity: 1,
         }}
       >
-        <div
-          className="container-default w-container"
-          style={{
-            marginLeft: 'auto', marginRight: 'auto', maxWidth: '1316px', paddingLeft: '24px', paddingRight: '24px'
+        <Box
+          sx={{
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            maxWidth: '1316px',
+            px: 3,
           }}
         >
-          <div
-            className="header-content-wrapper"
-            style={{ justifyContent: 'space-between', alignItems: 'center', paddingTop: '32px', paddingBottom: '32px', display: 'flex' }}
+          <Box
+            sx={{
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              py: 4,
+              display: 'flex',
+            }}
           >
-            <div className="header-left-side" style={{ display: 'flex', alignItems: 'center' }}>
-              <a href="/" className="header-logo-link w-nav-brand" style={{ textDecoration: 'none', marginRight: '48px', display: 'inline-block', color: 'rgb(51, 51, 51)', maxWidth: '238px' }}>
-                <img src="https://cdn.prod.website-files.com/66cb9ec4ecc3e280710368c3/66cba9270d1ff77c6836d95a_Wealthwondersworld_Header.png" alt="Logo" style={{ maxWidth: '100%' }} />
-              </a>
-              <nav className="header-nav-menu-wrapper w-nav-menu" role="navigation">
-                <ul className="header-nav-menu-list" style={{ display: 'flex', paddingLeft: '0px', marginBottom: '0px', listStyleType: 'none' }}>
-                  <li style={{ paddingRight: '32px' }}>
+            <FlexBox>
+              <Typography variant="h4" sx={{ color: '#E0E0E0', fontWeight: 'bold', mr: '48px' }}>Wealthwondersworld</Typography>
+              <nav role="navigation">
+                <ListBox component="ul">
+                  <Box component="li" sx={{ pr: 4 }}>
                     <Link to="/home" style={linkStyle}>Home</Link>
-                  </li>
-                  <li style={{ paddingRight: '32px' }}>
+                  </Box>
+                  <Box component="li" sx={{ pr: 4 }}>
                     <Link to="/about" style={linkStyle}>About</Link>
-                  </li>
-                </ul>
+                  </Box>
+                </ListBox>
               </nav>
-            </div>
-            <div className="header-right-side" style={{ display: 'flex', gap: '24px', alignItems: 'center', marginLeft: '40px' }}>
+            </FlexBox>
+            <FlexBox sx={{ gap: 3, ml: 5 }}>
               {isLoggedIn ? (
-                <Button color="inherit" onClick={logout}>Logout</Button>
+                <Button color="inherit" onClick={logout} sx={buttonStyle}>Logout</Button>
               ) : (
                 <>
                   <Link to="/login" style={buttonStyle}>Login</Link>
                   <Link to="/register" style={buttonStyle}>Registrieren</Link>
                 </>
               )}
-              <div className="social-media-links-container" style={{ display: 'flex', gap: '16px' }}>
-                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-                  <Facebook style={iconStyle} />
-                </a>
-                <a href="https://www.twitter.com/" target="_blank" rel="noopener noreferrer">
-                  <Twitter style={iconStyle} />
-                </a>
-                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-                  <Instagram style={iconStyle} />
-                </a>
-                <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-                  <LinkedIn style={iconStyle} />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              <FlexBox sx={{ gap: 2 }}>
+                <IconButton href={SOCIAL_MEDIA_URLS.facebook} target="_blank" rel="noopener noreferrer">
+                  <Facebook sx={iconStyle} />
+                </IconButton>
+                <IconButton href={SOCIAL_MEDIA_URLS.twitter} target="_blank" rel="noopener noreferrer">
+                  <Twitter sx={iconStyle} />
+                </IconButton>
+                <IconButton href={SOCIAL_MEDIA_URLS.instagram} target="_blank" rel="noopener noreferrer">
+                  <Instagram sx={iconStyle} />
+                </IconButton>
+                <IconButton href={SOCIAL_MEDIA_URLS.linkedin} target="_blank" rel="noopener noreferrer">
+                  <LinkedIn sx={iconStyle} />
+                </IconButton>
+              </FlexBox>
+            </FlexBox>
+          </Box>
+        </Box>
+      </Box>
 
       {!isReisenPage && (
         <>
-          <style dangerouslySetInnerHTML={{ __html: globalStyle }} />
+          <GlobalStyles
+            styles={`
+              html { box-sizing: border-box; text-size-adjust: 100%; font-family: sans-serif; height: 100%; }
+              body { margin: 0px; min-height: 100%; background-color: #050505; color: #afafaf; font-family: Objectivity, sans-serif; font-size: 18px; font-weight: 400; line-height: 1.667em; }
+            `}
+          />
           <Outlet />
         </>
       )}
@@ -89,16 +121,19 @@ export default function MainHeader() {
 
 // Stile
 const linkStyle = {
-  textDecoration: 'none', color: 'white', backgroundColor: 'rgba(0, 0, 0, 0)', transition: 'color 0.3s', verticalAlign: 'top', padding: '0px'
+  textDecoration: 'none',
+  color: '#E0E0E0',
+  transition: 'color 0.3s',
+  verticalAlign: 'top',
+  padding: '0px',
 };
 
 const buttonStyle = {
-  backgroundColor: 'rgba(0, 0, 0, 0)', backgroundImage: 'linear-gradient(135deg, rgb(86, 96, 112) 15%, rgb(6, 6, 6))', padding: '12px 20px', borderRadius: '96px', color: 'white', textDecoration: 'none'
+  backgroundColor: '#1C1C1E',
+  padding: '12px 20px',
+  borderRadius: '96px',
+  color: 'white',
+  textDecoration: 'none',
 };
 
-const iconStyle = { fontSize: '25px', color: 'white' };
-
-const globalStyle = `
-  html { box-sizing: border-box; text-size-adjust: 100%; font-family: sans-serif; height: 100%; }
-  body { margin: 0px; min-height: 100%; background-color: #050505; color: #afafaf; font-family: Objectivity, sans-serif; font-size: 18px; font-weight: 400; line-height: 1.667em; }
-`;
+const iconStyle = { fontSize: '25px', color: '#E0E0E0' };
